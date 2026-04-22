@@ -144,7 +144,9 @@ O ambiente é definido pela variável:
 ```env
 NODE_ENV=production
 ```
+## 🔄 Workflow n8n
 
+O workflow utilizado está disponível na pasta `/n8n` como export JSON.
 ---
 
 ## 🧪 Teste de falha do webhook
@@ -225,7 +227,10 @@ ai-task-analyzer/
 ---
 
 ## 👨‍💻 Autor
+Wilson Bruno Rocha Santos
+
 
 Desenvolvido como teste técnico para vaga de **Fullstack Junior**.
 
 ---
+

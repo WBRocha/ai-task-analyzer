@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
   res.json(tasks);
 });
 
-// DELETE - remover tarefa (BÔNUS)
+// DELETE - remover tarefa
 router.delete("/:id", (req, res) => {
   db.prepare("DELETE FROM tasks WHERE id = ?").run(req.params.id);
   res.status(204).send();
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ erro: "Campos obrigatórios" });
     }
 
-    // 🔥 AQUI CHAMA A IA
+    
     const ai = await analyzeTask(descricao);
 
     const result = db.prepare(`
@@ -52,20 +52,20 @@ res.status(201).json(task);
   res.status(502).json({ erro: "Erro na resposta da IA" });
 }
 });
-// GET - estatísticas (BÔNUS)
+// GET - estatísticas
 router.get("/stats", (req, res) => {
   try {
-    // total de tarefas
+    
     const total = db.prepare("SELECT COUNT(*) as total FROM tasks").get();
 
-    // contagem por categoria
+    
     const categorias = db.prepare(`
       SELECT categoria, COUNT(*) as total 
       FROM tasks 
       GROUP BY categoria
     `).all();
 
-    // contagem por dificuldade
+    
     const dificuldades = db.prepare(`
       SELECT dificuldade, COUNT(*) as total 
       FROM tasks 

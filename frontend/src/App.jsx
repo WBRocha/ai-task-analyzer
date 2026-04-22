@@ -45,7 +45,7 @@ function App() {
 
     setResultado(data);
 
-    // ✅ AQUI É A CORREÇÃO IMPORTANTE
+    
     setTasks(prev => [data, ...prev]);
 
     const statsRes = await fetch("http://localhost:3000/tasks/stats");
