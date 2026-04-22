@@ -6,6 +6,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [resultado, setResultado] = useState(null);
+  const [stats, setStats] = useState(null);
 
   async function loadTasks() {
     const res = await fetch("http://localhost:3000/tasks");
@@ -14,14 +15,20 @@ function App() {
   }
 
   useEffect(() => {
-    loadTasks();
-  }, []);
+  loadTasks();
+
+  fetch("http://localhost:3000/tasks/stats")
+    .then(res => res.json())
+    .then(setStats);
+
+}, []);
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    setResultado(null);
+  e.preventDefault();
+  setLoading(true);
+  setResultado(null);
 
+  try {
     const res = await fetch("http://localhost:3000/tasks", {
       method: "POST",
       headers: {
@@ -30,16 +37,30 @@ function App() {
       body: JSON.stringify({ titulo, descricao })
     });
 
+    if (!res.ok) {
+      throw new Error("Erro na requisição");
+    }
+
     const data = await res.json();
 
     setResultado(data);
-    setTasks([data, ...tasks]);
+
+    // ✅ AQUI É A CORREÇÃO IMPORTANTE
+    setTasks(prev => [data, ...prev]);
+
+    const statsRes = await fetch("http://localhost:3000/tasks/stats");
+const statsData = await statsRes.json();
+setStats(statsData);
 
     setTitulo("");
     setDescricao("");
 
+  } catch (err) {
+    alert("Erro ao criar tarefa");
+  } finally {
     setLoading(false);
   }
+}
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
@@ -87,9 +108,34 @@ function App() {
         )}
       </div>
 
+      {stats && (
+  <div className="bg-white p-4 rounded-xl shadow mt-6 w-full max-w-md">
+    <h2 className="text-lg font-bold mb-2">Estatísticas</h2>
+    <p><strong>Total:</strong> {stats.total}</p>
+
+    <div className="mt-2">
+      <p className="font-semibold">Categorias:</p>
+      {stats.por_categoria.map((c, i) => (
+        <p key={i}>{c.categoria}: {c.total}</p>
+      ))}
+    </div>
+
+    <div className="mt-2">
+      <p className="font-semibold">Dificuldade:</p>
+      {stats.por_dificuldade.map((d, i) => (
+        <p key={i}>{d.dificuldade}: {d.total}</p>
+      ))}
+    </div>
+  </div>
+)}
+
       {/* LISTA */}
       <div className="w-full max-w-md mt-6">
         <h2 className="text-xl font-semibold mb-3">Lista de Tarefas</h2>
+
+        {tasks.length === 0 && (
+  <p className="text-gray-500 text-center">Nenhuma tarefa ainda</p>
+)}
 
         {tasks.map((task) => (
           <div
