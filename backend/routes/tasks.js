@@ -1,7 +1,7 @@
-import axios from "axios";
 import express from "express";
 import db from "../database/db.js";
 import { analyzeTask } from "../services/openai.js";
+import { sendToN8n } from "../services/n8n.js";
 
 const router = express.Router();
 
@@ -44,8 +44,7 @@ router.post("/", async (req, res) => {
   .get(result.lastInsertRowid);
 
 // 🔗 envia para o n8n (fire and forget)
-axios.post(process.env.N8N_WEBHOOK_URL, task)
-  .catch(err => console.error("Erro no webhook:", err));
+sendToN8n(task);
 res.status(201).json(task);
 
   } catch (err) {
