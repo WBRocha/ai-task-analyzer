@@ -56,10 +56,21 @@ Crie um arquivo `.env` na raiz do projeto com:
 
 ```env
 OPENAI_API_KEY=sua_chave_aqui
-N8N_WEBHOOK_URL=sua_url_do_webhook
+N8N_WEBHOOK_TEST_URL=sua_url_test
+N8N_WEBHOOK_PROD_URL=sua_url_producao
+NODE_ENV=development
 PORT=3000
 ```
+🔀 Modos de execução do webhook
 
+O sistema suporta dois modos:
+
+Test (/webhook-test) → usado durante desenvolvimento (requer “Execute workflow” no n8n)
+Produção (/webhook) → funciona automaticamente quando o workflow está publicado
+
+O ambiente é definido pela variável:
+
+NODE_ENV=production
 ---
 
 ### 3. Rodar o backend
@@ -124,7 +135,7 @@ GET /tasks/stats
 
 ## 🔄 Integração com n8n
 
-O sistema envia automaticamente um POST para o webhook configurado no `.env`.
+O sistema envia automaticamente um POST para o webhook configurado no `.env`, suportando tanto modo de teste quanto produção.
 
 ### ✔ Comportamento importante
 
