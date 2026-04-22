@@ -53,5 +53,35 @@ res.status(201).json(task);
   res.status(502).json({ erro: "Erro na resposta da IA" });
 }
 });
+// GET - estatísticas (BÔNUS)
+router.get("/stats", (req, res) => {
+  try {
+    // total de tarefas
+    const total = db.prepare("SELECT COUNT(*) as total FROM tasks").get();
 
+    // contagem por categoria
+    const categorias = db.prepare(`
+      SELECT categoria, COUNT(*) as total 
+      FROM tasks 
+      GROUP BY categoria
+    `).all();
+
+    // contagem por dificuldade
+    const dificuldades = db.prepare(`
+      SELECT dificuldade, COUNT(*) as total 
+      FROM tasks 
+      GROUP BY dificuldade
+    `).all();
+
+    res.json({
+      total: total.total,
+      por_categoria: categorias,
+      por_dificuldade: dificuldades
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: "Erro ao gerar estatísticas" });
+  }
+});
 export default router;
