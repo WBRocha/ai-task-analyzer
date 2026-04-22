@@ -93,7 +93,13 @@ Acesse no navegador:
 ```
 http://localhost:5173
 ```
+## ▶️ Rodar tudo com um comando
 
+Na raiz do projeto:
+
+npm run dev
+
+Isso iniciará o backend e o frontend simultaneamente.
 ---
 
 ## 🔗 Endpoints da API
