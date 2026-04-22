@@ -168,6 +168,10 @@ Para validar o comportamento **fire-and-forget**:
 * SQLite com arquivo `.db`
 * Criado automaticamente ao iniciar o servidor
 
+O banco é gerado automaticamente na primeira execução, não sendo necessário incluí-lo no repositório.
+
+O arquivo `.db` não é versionado por motivos de segurança e boas práticas.
+
 ### Tabela `tasks`
 
 * id
