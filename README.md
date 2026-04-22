@@ -44,7 +44,7 @@ Além disso, o sistema salva os dados em banco SQLite e dispara um webhook para 
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/SEU-REPO.git
+git clone https://github.com/WBRocha/ai-task-analyzer.git
 cd ai-task-analyzer
 ```
 
