@@ -52,7 +52,7 @@ cd ai-task-analyzer
 
 ### 2. Configurar variáveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto com:
+Crie um arquivo `.env` (no backend ou na raiz) com:
 
 ```env
 OPENAI_API_KEY=sua_chave_aqui
@@ -61,16 +61,7 @@ N8N_WEBHOOK_PROD_URL=sua_url_producao
 NODE_ENV=development
 PORT=3000
 ```
-🔀 Modos de execução do webhook
 
-O sistema suporta dois modos:
-
-Test (/webhook-test) → usado durante desenvolvimento (requer “Execute workflow” no n8n)
-Produção (/webhook) → funciona automaticamente quando o workflow está publicado
-
-O ambiente é definido pela variável:
-
-NODE_ENV=production
 ---
 
 ### 3. Rodar o backend
@@ -137,25 +128,36 @@ GET /tasks/stats
 
 O sistema envia automaticamente um POST para o webhook configurado no `.env`, suportando tanto modo de teste quanto produção.
 
-### ✔ Comportamento importante
+### 🔀 Modos de execução do webhook
 
-* O webhook é **fire-and-forget**
-* Não bloqueia a resposta do backend
-* Mesmo com n8n offline, a tarefa é salva normalmente
+O sistema suporta dois modos:
+
+* **Test (`/webhook-test`)**
+  Usado durante desenvolvimento.
+  Requer clicar em **"Execute workflow"** no n8n.
+
+* **Produção (`/webhook`)**
+  Funciona automaticamente quando o workflow está publicado (**Publish** no n8n).
+
+O ambiente é definido pela variável:
+
+```env
+NODE_ENV=production
+```
 
 ---
 
 ## 🧪 Teste de falha do webhook
 
-Para validar:
+Para validar o comportamento **fire-and-forget**:
 
 1. Alterar a URL do webhook para inválida
 2. Criar uma tarefa
 3. Verificar:
 
-   * ✔ tarefa salva
-   * ✔ frontend responde
-   * ✔ erro apenas no console
+* ✔ tarefa salva no banco
+* ✔ frontend responde normalmente
+* ✔ erro aparece apenas no console do backend
 
 ---
 
@@ -164,7 +166,7 @@ Para validar:
 * SQLite com arquivo `.db`
 * Criado automaticamente ao iniciar o servidor
 
-Tabela `tasks`:
+### Tabela `tasks`
 
 * id
 * titulo
@@ -193,7 +195,8 @@ Tabela `tasks`:
 * DELETE `/tasks/:id`
 * UI com Tailwind
 * Atualização dinâmica de dados
-* Estrutura organizada (routes, services, database)
+* Separação de responsabilidades (routes, services, database)
+* Integração n8n com suporte a test e produção
 * Git com commits semânticos
 
 ---
