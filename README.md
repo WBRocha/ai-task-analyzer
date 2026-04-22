@@ -93,13 +93,19 @@ Acesse no navegador:
 ```
 http://localhost:5173
 ```
+
+---
+
 ## ▶️ Rodar tudo com um comando
 
 Na raiz do projeto:
 
+```bash
 npm run dev
+```
 
 Isso iniciará o backend e o frontend simultaneamente.
+
 ---
 
 ## 🔗 Endpoints da API
@@ -136,8 +142,6 @@ O sistema envia automaticamente um POST para o webhook configurado no `.env`, su
 
 ### 🔀 Modos de execução do webhook
 
-O sistema suporta dois modos:
-
 * **Test (`/webhook-test`)**
   Usado durante desenvolvimento.
   Requer clicar em **"Execute workflow"** no n8n.
@@ -150,9 +154,13 @@ O ambiente é definido pela variável:
 ```env
 NODE_ENV=production
 ```
+
+---
+
 ## 🔄 Workflow n8n
 
 O workflow utilizado está disponível na pasta `/n8n` como export JSON.
+
 ---
 
 ## 🧪 Teste de falha do webhook
@@ -192,12 +200,12 @@ O arquivo `.db` não é versionado por motivos de segurança e boas práticas.
 
 ## 📊 Funcionalidades
 
-✔ Criar tarefas com IA
-✔ Listar tarefas
-✔ Exibir análise da IA
-✔ Dashboard de estatísticas
-✔ Integração com webhook
-✔ Tratamento de erro básico
+* ✔ Criar tarefas com IA
+* ✔ Listar tarefas
+* ✔ Exibir análise da IA
+* ✔ Dashboard de estatísticas
+* ✔ Integração com webhook
+* ✔ Tratamento de erro básico
 
 ---
 
@@ -230,6 +238,7 @@ ai-task-analyzer/
     routes/
     services/
     database/
+  n8n/
   .env.example
   README.md
 ```
@@ -237,10 +246,7 @@ ai-task-analyzer/
 ---
 
 ## 👨‍💻 Autor
-Wilson Bruno Rocha Santos
 
+**Wilson Bruno Rocha Santos**
 
 Desenvolvido como teste técnico para vaga de **Fullstack Junior**.
-
----
-
