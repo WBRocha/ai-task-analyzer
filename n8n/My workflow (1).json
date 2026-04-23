@@ -1,0 +1,69 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "task",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "37e65200-c68d-4888-a71e-b1ae01f14bce",
+      "name": "Webhook",
+      "webhookId": "b89cd946-aa6e-4329-bf1b-40f929e343c4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9f343fb1-ebfc-443a-a3d9-4ddd2d1f1431",
+              "name": "Mensagem",
+              "value": "webhook recebido com sucesso",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c20e2a53-7674-4f5f-99d4-3f1f522938f3",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ae7dbcd5-2283-4e26-ba86-e9d0dbd111e2",
+  "meta": {
+    "instanceId": "3cb6e66013f8be5c548e6ed22ea1621061c75e9d474c86e28359a4988d802af4"
+  },
+  "id": "bJaxZ4Ek7lcyNz74",
+  "tags": []
+}
