@@ -7,6 +7,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [resultado, setResultado] = useState(null);
   const [stats, setStats] = useState(null);
+  const [touched, setTouched] = useState(false);
 
   async function loadTasks() {
     const res = await fetch("http://localhost:3000/tasks");
@@ -23,9 +24,13 @@ function App() {
   }, []);
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    setResultado(null);
+  e.preventDefault();
+  setTouched(true);
+
+  if (!titulo || !descricao) return;
+
+  setLoading(true);
+  setResultado(null);
 
     try {
       const res = await fetch("http://localhost:3000/tasks", {
@@ -95,6 +100,9 @@ function App() {
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
           />
+          {touched && !titulo && (
+           <p className="text-red-500 text-xs">Informe um título</p>
+            )}
 
           <textarea
             className="border border-gray-200 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
@@ -102,6 +110,9 @@ function App() {
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
           />
+          {touched && !descricao && (
+           <p className="text-red-500 text-xs">Informe uma descrição</p>
+           )}
 
           <button
             type="submit"
